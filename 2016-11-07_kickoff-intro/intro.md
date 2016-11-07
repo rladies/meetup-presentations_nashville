@@ -14,26 +14,83 @@ output:
 
 ![](figs/r-marker-purple-sq.png)
 
-## What we've been doing
-
- <img width="100%" src="figs/r-ladies-timeline.pdf">
- 
 ## Github
 
 All of our slides will be hosted on our github:
 https://github.com/rladies-nashville
 ![](figs/github.png)
 
+## What we've been doing
+
+ <img width="100%" src="figs/r-ladies-timeline.pdf">
+ 
+## R-Ladies Global
+<img alt="" src="https://pbs.twimg.com/profile_banners/770490229769789440/1477767259/1500x500" style="transform: none;">
+
 ## How you can link into the Community
 
 - Meetup: [www.meetup.com/rladies-nashville/](https://www.meetup.com/rladies-nashville/)
-- Twitter: @RLadiesNash
+- Twitter: [RLadiesNash](https://twitter.com/rladiesnash) & [RLadiesGlobal](https://twitter.com/rladiesglobal)
 - Github: [www.github.com/rladies-nashville](https://github.com/rladies-nashville)
 - Website: [www.rladies.org](http://www.rladies.org)
 - Speaker Directory: [www.rladies.org/r-speakers/](https://rladies.org/r-speakers/)
 
 
 ## Where we are now?
+
+## R Foundation Women in R Taskforce
+<div id ="header">
+<div id="footer-center">*Taskforce on Women in R* Di Cook, WSDS 2016</div></div>
+> to improve the participation and experience of women in the R community
+
+<div align = "center">
+<table id="nogrid">
+<tr>
+<td style="width:130px"><img height = "90" src="figs/jenny_bryan.jpg"></td>
+<td>Jenny Bryan</br>CA</td>
+<td><img height = "90" src="figs/alicia_oshlack.jpg"></td>
+<td> Alicia Oshlack</br>AU</td>
+<td><img height = "90" src="figs/oliver_keyes.jpg"></td>
+<td> Oliver Keyes</br>US</td>
+</tr>
+
+<tr>
+<td><img height = "90" src="figs/di_cook.jpg"></td>
+<td> Di Cook</br>AU</td>
+<td><img height = "90" src="figs/carolin_strobl.jpg"></td>
+<td> Carolin Strobl</br>CH</td>
+<td><img height = "90" src="figs/kevin_obrien.jpg"></td>
+<td> Kevin O'Brien</br>IE</td>
+</tr>
+
+<tr>
+<td><img height = "90" src="figs/julie_josse.jpg"></td>
+<td>Julie Josse</br>FR</td>
+<td><img height = "90" src="figs/heather_turner.jpg"></td>
+<td> Heather Turner</br>UK</td>
+<td><img height = "90" src="figs/michael_lawrence.jpg"></td>
+<td> Michael Lawrence</br>US</td>
+</tr>
+</table> 
+</div>
+
+## Information Central: Website/GitHub
+<div id ="header">
+<div id="footer-center">*Taskforce on Women in R* Di Cook, WSDS 2016</div></div>
+<div style="display: flex; align-items: center;">
+<div>
+- http://forwards.github.io/
+    - Summary of where we are
+    - Events calendar
+    - Data and code for gender summaries
+    - Links to resources on diversity in tech
+    - Slides from talks
+    - More as initiative develops!
+</div>
+
+
+<iframe data-src="http://forwards.github.io/" height = 500 width = 650></iframe>
+</div>  
 
 ## 2010 Survey of Packages
 <div id ="header">
@@ -172,24 +229,6 @@ R-forge&#185;
 </div> 
 
 
-## Information Central: Website/GitHub
-<div id ="header">
-<div id="footer-center">*Taskforce on Women in R* Di Cook, WSDS 2016</div></div>
-<div style="display: flex; align-items: center;">
-<div>
-- http://forwards.github.io/
-    - Summary of where we are
-    - Events calendar
-    - Data and code for gender summaries
-    - Links to resources on diversity in tech
-    - Slides from talks
-    - More as initiative develops!
-</div>
-
-
-<iframe data-src="http://forwards.github.io/" height = 500 width = 650></iframe>
-</div>  
-
 ## Conferences
 <div id ="header">
 <div id="footer-center">*Taskforce on Women in R* Di Cook, WSDS 2016</div></div>
@@ -198,47 +237,7 @@ R-forge&#185;
      - maintain current gender balance for invited speakers
      - aim for similar gender balance for tutorials: 28% had female tutor in 2015
 - useR! 2017 proposal includes offering childcare
-  
-## Community building: RLadies
-<div id ="header">
-<div id="footer-center">*Taskforce on Women in R* Di Cook, WSDS 2016</div></div>
-<img height="500" src="figs/R-Ladies Flyer - Landscape.pdf">
 
-## R Foundation Women in R Taskforce
-<div id ="header">
-<div id="footer-center">*Taskforce on Women in R* Di Cook, WSDS 2016</div></div>
-> to improve the participation and experience of women in the R community
-
-<div align = "center">
-<table id="nogrid">
-<tr>
-<td style="width:130px"><img height = "90" src="figs/jenny_bryan.jpg"></td>
-<td>Jenny Bryan</br>CA</td>
-<td><img height = "90" src="figs/alicia_oshlack.jpg"></td>
-<td> Alicia Oshlack</br>AU</td>
-<td><img height = "90" src="figs/oliver_keyes.jpg"></td>
-<td> Oliver Keyes</br>US</td>
-</tr>
-
-<tr>
-<td><img height = "90" src="figs/di_cook.jpg"></td>
-<td> Di Cook</br>AU</td>
-<td><img height = "90" src="figs/carolin_strobl.jpg"></td>
-<td> Carolin Strobl</br>CH</td>
-<td><img height = "90" src="figs/kevin_obrien.jpg"></td>
-<td> Kevin O'Brien</br>IE</td>
-</tr>
-
-<tr>
-<td><img height = "90" src="figs/julie_josse.jpg"></td>
-<td>Julie Josse</br>FR</td>
-<td><img height = "90" src="figs/heather_turner.jpg"></td>
-<td> Heather Turner</br>UK</td>
-<td><img height = "90" src="figs/michael_lawrence.jpg"></td>
-<td> Michael Lawrence</br>US</td>
-</tr>
-</table> 
-</div>
 
     
 ## Summary
@@ -260,4 +259,13 @@ R-forge&#185;
 http://forwards.github.io/
 </div>
 </div>
+
+## What you can do
+<br>
+
+- Plug into the community 
+    - rladies.org, @RLadiesNash, @RLadiesGlobal
+- Spread the news
+- Mentor/be mentored by other women
+- **Help us make R Ladies Nashville a success!**
     
