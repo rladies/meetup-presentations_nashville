@@ -1,0 +1,142 @@
+install.packages("xpath")
+install.packages("xml")
+install.packages("XML")
+library(XML)
+install.packages("jsonlite")
+library(jsonlite)
+install.packages("data.table")
+library(data.table)
+DT1<-data.table(x=c('a','a','b','dt1'). y-1:4)
+DT1<-data.table(x=c('a','a','b','dt1'), y-1:4)
+DT1<-data.table(x=c('a','a','b','dt1'), y=1:4)
+DT2<-data.table(x=c('a','b','dt2'), z=5:7)
+setkey(DT1, x); setkey(DT2,x)
+merge(DT1,DT2)
+help("merge")
+myapp = oauth_app("github", key = "e67e9e58f5aef6ed7e11", secret = "bd43e35fa5e6edf2ad662344efc889626cad635f")
+install.packages ("httr")
+library(httr)
+myapp <- oauth_app("github", key = "e67e9e58f5aef6ed7e11", secret = "bd43e35fa5e6edf2ad662344efc889626cad635f")
+github_token <- oauth2.0_token(oauth_endpoints("github"), myapp)
+myapp <- oauth_app("github", key = "e67e9e58f5aef6ed7e11", secret = "bd43e35fa5e6edf2ad662344efc889626cad635f")
+github_token <- oauth2.0_token(oauth_endpoints("github"), myapp)
+install.packages("httr")
+library(httr)
+myapp <- oauth_app("github", key = "e67e9e58f5aef6ed7e11", secret = "bd43e35fa5e6edf2ad662344efc889626cad635f")
+github_token <- oauth2.0_token(oauth_endpoints("github"), myapp)
+install.packages("httpuv")
+library(httpuv)
+github_token <- oauth2.0_token(oauth_endpoints("github"), myapp)
+req <- GET("https://api.github.com/rate_limit", config(token = github_token))#
+stop_for_status(req)#
+content(req)
+github_token <- oauth2.0_token(oauth_endpoints("github"), myapp)
+c
+github_token <- oauth2.0_token(oauth_endpoints("github"), myapp)
+c`
+c`#
+`c`
+c`#
+`c`#
+`c`
+c`#
+`c`#
+`c`#
+`ç
+c`#
+`c`#
+`c`#
+`ç#
+#
+``
+c
+da
+end
+run
+d()
+github_token <- oauth2.0_token(oauth_endpoints("github"), myapp)
+x + y
+rw
+install.packages("httr")
+library(httr)
+oauth_endpoints("github")
+myapp <- oauth_app("github", key = "e67e9e58f5aef6ed7e11", secret = "bd43e35fa5e6edf2ad662344efc889626cad635f")
+github_token <- oauth2.0_token(oauth_endpoints("github"), myapp)
+req <- GET("https://api.github.com/rate_limit", config(token = github_token))#
+stop_for_status(req)#
+content(req)
+names(req)
+req <- GET("https://api.github.com/users/jtleek/repos", config(token = github_token))#
+stop_for_status(req)#
+content(req)
+json1 = content(req)
+json2 = jsonlite::fromJSON(toJSON(json1))
+install.packages("jsonlite")
+library(jsonlite)
+json1 = content(req)
+json2 = jsonlite::fromJSON(toJSON(json1))
+json2
+head(json2)
+names(json2)
+json2[,45]
+json2[,2]
+json2[,45]
+install.packages("RMySQL", type = source)
+install.packages("RMySQL", type = "source")
+library(RMySQL)
+install(httr)
+install.packages("httr")
+library(httr)
+#log-likelihood for normal distribution#
+x <- rnorm(100, mean = 15, sd = 5) #true mean of 15 and sd of 5#
+#
+loglike_normal <- function(mu, sigma, n = 100){#
+  -(n/2)*log(2*pi) - (n/2)*log(sigma^2) - (1/(2*sigma^2))*sum((x - mu)^2)#
+}#
+#
+#Some values of mu#
+vec <- seq(-10, 40, .1)#
+plot(vec, lapply(vec, loglike_normal, sigma = 5), type = 'l')
+log(25)
+data.frame(test = 1:3)
+df <- data.frame(test = 1:3)
+df[,'Approximate'] <- 4:6
+df
+getwd()
+load("/Users/hannahweeks/Documents/BIOS7330/Homework/r.rda")
+names(r)
+dim(r)
+r[,1]
+r
+load("/Users/hannahweeks/Documents/BIOS7330/Homework/r.rda")
+r
+load("/Users/hannahweeks/Documents/BIOS7330/Homework/r.rda")
+r
+load("/Users/hannahweeks/Documents/BIOS7330/Homework/r.rda")
+r
+load("/Users/hannahweeks/Documents/BIOS7330/Homework/r.rda")
+r
+load("/Users/hannahweeks/Documents/BIOS7330/Homework/r.rda")
+r
+load("/Users/hannahweeks/Documents/BIOS7330/Homework/r.rda")
+r
+load("/Users/hannahweeks/Documents/BIOS7330/Homework/r.rda")
+r
+library(shiny)
+ui <- fluidPage(titlePanel("test"))
+server <- function(input, output){}
+shinyApp(ui, server)
+runApp("OppPK-Graphic")
+runApp("/Users/Documents/Vanderbilt/TL1/OppPK-Graphic")
+runApp("simpleApp")
+runApp("simpleapp")
+runApp("/Users/Documents/RLadies/shinydemo")
+runApp("/Users/Documents/RLadies/shinydemo/simpleApp")
+runApp("/Users/Documents/RLadies/shinydemo/simpleapp")
+getwd()
+setwd("/Users/Documents/RLadies/shinydemo")
+runApp("/Users/hannahweeks/Documents/Vanderbilt/TL1/OppPK-Graphic")
+getwd()
+setwd("/Users/Documents/RLadies/shinydemo")
+setwd("/Users/hannahweeks/Documents/RLadies/shinydemo")
+runApp("/Users/hannahweeks/Documents/Vanderbilt/TL1/OppPK-Graphic")
