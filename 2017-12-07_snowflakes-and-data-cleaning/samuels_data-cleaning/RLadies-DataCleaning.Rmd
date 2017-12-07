@@ -1,0 +1,371 @@
+---
+title: "New data-cleaning tools in R"
+author: "Laurie Samuels"
+date: '`r format(Sys.time(), "%a %d %b %Y, %R")`'
+output:
+    bookdown::html_document2:
+        toc: yes
+        number_sections: true
+        toc_depth: 4
+        code_folding: show
+---
+<style>
+.main-container {width: 1200px; max-width:3600px;}
+</style>
+# Setup 
+```{r setup, results='hide', message= FALSE}
+### LOADING LIBRARIES ###
+library(Hmisc)
+library(rms)
+library(magrittr)
+library(dplyr)
+library(ggplot2)
+library(gridExtra)
+library(lubridate)
+library(knitr)
+library(stringr)
+library(dataMaid)
+library(validate)
+library(janitor)
+library(assertr)
+
+knitrSet(
+    lang='markdown', 
+    h=4.5,
+    messages= 'console'
+)
+mSpecs <- markupSpecs$html   # markupSpecs is in Hmisc
+cap  <- mSpecs$cap           # function to output html caption
+lcap <- mSpecs$lcap          # for continuation for long caption
+# These last 2 functions are used by the putHfig function in Hmisc
+
+#The following defines HTML styles and javascript functions
+mSpecs$styles()
+
+#The following causes the html notebook to use an entire wide screen.
+mSpecs$widescreen()
+
+# R options
+options(width= 400)
+```
+
+```{r filesetup}
+box.dir    <- file.path("~", "Box Sync")
+proj.dir   <- file.path(box.dir, "RLadies", 
+    "pres20171201")
+
+# files I'll use
+rawdat <- file.path(proj.dir, "rhc.csv")
+
+# files I'll save
+dmReport <- file.path(proj.dir, "cleaningReport.Rmd")
+dmReport2 <- file.path(proj.dir, "cleaningReport2.Rmd")
+```
+
+<!---
+We import the data in Section \@ref(dataimp).
+--->
+# About this file
+This is the file I used for the R Ladies meetup on Dec 1, 2017. (I switched to using a subset of the variables in the rhc dataset though.)
+
+
+# Data import {#dataimp}
+RHC dataset available at http://biostat.mc.vanderbilt.edu/wiki/Main/DataSets
+
+```{r import1}
+rhcdat0 <- read.csv(rawdat, stringsAsFactors= FALSE)
+rhcdat <- dplyr::select(rhcdat0, ptid, meanbp1, wtkilo1, cat1, cat2, renalhx, 
+    dschdte, sadmdte)
+```
+
+# Preliminary description using Hmisc
+
+## With scroll= FALSE
+```{r describedat1aF, results='asis'}
+Hmisc::html(describe(rhcdat), size=80, scroll= FALSE)
+```
+
+## With scroll= TRUE
+```{r describedat1a, results='asis'}
+Hmisc::html(describe(rhcdat), size=80, scroll= TRUE)
+```
+
+<!---
+#########################################################
+--->
+
+
+# The dataMaid package
+```{r dm1}
+dataMaid::makeDataReport(rhcdat,
+    output     = "html",
+    file       = dmReport,
+    replace    = TRUE,
+    standAlone = FALSE
+)
+```
+```{r, child = dmReport}
+```
+
+# dataMaid, continued
+## Checking what I think should be the primary key--- not working as expected
+```{r dm2a, results= 'markup'}
+dataMaid::isKey(rhcdat$ptid)
+```
+```{r dm2b, results= 'markup'}
+dataMaid::isKey(rhcdat$cat1)
+```
+
+## Adding in some problem variables
+```{r addvar}
+rhc2 <- within(rhcdat, {
+    myKey <- factor(1:nrow(rhcdat))    
+    mySingular <- 3
+    myComplex <- complex(length.out= nrow(rhcdat))
+})
+```
+```{r dm1b}
+# You can run this part from an interactive session if you want
+if (FALSE) {
+    dataMaid::makeDataReport(rhc2,
+        output     = "html",
+        file       = dmReport2,
+        replace    = TRUE,
+        standAlone = TRUE,
+        render     = TRUE
+    )
+}
+```
+
+<!---
+#########################################################
+--->
+
+
+# The janitor package
+
+## clean_names()
+```{r cleannames}
+# From their vignette
+# Create a data.frame with dirty names
+test_df <- as.data.frame(matrix(ncol = 6))
+names(test_df) <- c("hIgHlo", "REPEAT VALUE", "REPEAT VALUE",
+                    "% successful (2009)",  "abc@!*", "")
+print(test_df)
+
+test_df2 <- test_df %>%
+  janitor::clean_names()
+print(test_df2)
+
+#Compare to what base R produces:
+make.names(names(test_df))
+```
+
+## tabyl()
+```{r tabyl}
+t1 <- table(rhcdat$cat2)
+print(t1)
+# The next line produces an error
+#print(kable(t1))
+
+t2 <- janitor::tabyl(rhcdat$cat2)
+# or, equivalently,
+t2 <- rhcdat %>% janitor::tabyl(cat2)
+print(t2)
+```
+```{r tabyl2, results= 'asis'}
+print(kable(t2))
+```
+
+## crosstab()
+```{r crosstab}
+t3 <- with(rhcdat, table(cat1, cat2))
+print(t3)
+```
+```{r crosstab2, results= 'asis'}
+print(kable(t3))
+```
+
+```{r crosstab3}
+t4 <- rhcdat %>% janitor::crosstab(cat1, cat2)
+print(t4)
+```
+```{r crosstab4, results= 'asis'}
+print(kable(t4))
+```
+
+## adorn_crosstab() and adorn_totals()
+```{r adorn}
+t5 <-  t4 %>%
+    janitor::adorn_crosstab()
+
+print(t5)
+```
+```{r adorn2, results= 'asis'}
+print(kable(t5))
+```
+
+```{r adorn3, results= 'asis'}
+t6 <-  t4 %>%
+    janitor::adorn_crosstab(show_totals= TRUE)
+print(kable(t6))
+```
+
+```{r adorn4, results= 'asis'}
+t7 <- t4 %>%
+    janitor::adorn_totals()
+print(kable(t7))
+```
+
+## get_dupes()
+```{r getdup}
+mydups <- rhcdat %>% janitor::get_dupes(ptid)
+print(mydups)
+```
+
+```{r getdup2, results= 'asis'}
+# add in a row with a duplicate id
+rhc3 <- rbind(rhcdat[1, ], rhcdat)
+mydups2 <- rhc3 %>% janitor::get_dupes(ptid)
+print(kable(mydups2))
+# View(mydups2)
+```
+
+<!---
+#########################################################
+--->
+
+
+# The validate package
+```{r val1}
+valSum <- validate::check_that(rhcdat,
+    meanbp1 > 0, 
+    wtkilo1 > 0, 
+    is.na(dschdte) | dschdte >= sadmdte
+)
+print(summary(valSum))
+```
+```{r val1b, results= 'asis'}
+print(kable(summary(valSum)))
+```
+```{r val2, fig.width= 7, fig.height= 5}
+barplot(valSum, main= "A few checks")
+```
+```{r val3, results= 'markup'}
+v <- validate::validator(
+    meanbp1 > 0, 
+    wtkilo1 > 0, 
+    is.na(dschdte) | dschdte >= sadmdte
+)
+print(v)
+```
+
+```{r val4, results= 'markup'}
+cf <- confront(rhcdat, v)
+
+print(cf)
+print(summary(cf))
+```
+
+```{r val4b, results= 'markup'}
+print(aggregate(cf) )
+print(head(aggregate(cf,by='record')))
+```
+
+```{r val5, results= 'asis'}
+print(kable(summary(cf)))
+```
+
+```{r val6, results= 'asis'}
+valdat <- data.frame(values(cf))
+print(kable(head(valdat)))
+```
+```{r val6b, results= 'asis'}
+valdat <- cbind(ptid= rhcdat$ptid, valdat)
+print(kable(head(valdat)))
+```
+```{r val6c, results= 'asis'}
+valdat2 <- valdat[with(valdat, !(V1 & V2 & V3)), ]
+print(kable(head(valdat2), row.names= FALSE))
+```
+
+```{r val6d}
+print(v)
+vdf <- as.data.frame(v)
+rulevec <- vdf$rule
+print(rulevec)
+```
+
+
+```{r val6e, results= 'asis'}
+ruledat <- data.frame(t(
+    apply(valdat2[, 2:ncol(valdat2)], 1, function(vec) {
+    cbind(ifelse(vec == "FALSE", "X", ""))
+})))
+names(ruledat) <- rulevec
+ruledat <- cbind(ptid= valdat2$ptid, ruledat)
+print(kable(head(ruledat), row.names= FALSE))
+```
+
+<!---
+#########################################################
+--->
+
+# The assertr package--- we didn't get to this; note I have set all chunks to eval= FALSE
+## verify()
+```{r assert1, eval= FALSE}
+d1 <- rhcdat %>%
+  assertr::verify(meanbp1 > 0) %>%
+  group_by(cat1) %>%
+  summarise(avg.meanbp1 = mean(meanbp1))
+d1
+
+assertr::verify(rhcdat, meanbp1 > 0)
+```
+"The verify function takes a data frame (its first argument is provided by the %>% operator), and a logical (boolean) expression. Then, verify evaluates that expression using the scope of the provided data frame. If any of the logical values of the expression’s result are FALSE, verify will raise an error that terminates any further processing of the pipeline."
+
+## assert()
+"The assert function takes a data frame, a predicate function, and an arbitrary number of columns to apply the predicate function to. The predicate function (a function that returns a logical/boolean value) is then applied to every element of the columns selected, and will raise an error when if it finds violations."
+```{r assert2, eval= FALSE}
+d2 <- assertr::assert(rhcdat, within_bounds(0, Inf, include.lower= FALSE, include.upper= TRUE, allow.na= TRUE), meanbp1) %>%
+  group_by(cat1) %>%
+  summarise(avg.meanbp1 = mean(meanbp1))
+
+d2
+```
+```{r assert3, eval= FALSE}
+d3 <- rhcdat %>% 
+    assertr::assert(within_bounds(0, Inf, include.lower= FALSE, include.upper= TRUE, allow.na= TRUE), 
+        meanbp1,
+        error_fun= error_append) 
+
+d3
+str(d3)
+e1 <- attr(d3, "assertr_errors")
+e1df <- e1[[1]]$error_df
+```
+
+```{r assert4, eval= FALSE}
+d4 <- rhcdat %>% 
+    assertr::assert(within_bounds(0, Inf, include.lower= FALSE, include.upper= TRUE, allow.na= TRUE), 
+        meanbp1,
+        error_fun= error_append) %>% 
+    assertr::assert(not_na, 
+        dschdte,
+        error_fun= error_append)  
+
+d4
+str(d4)
+e2 <- attr(d4, "assertr_errors")
+e2df1 <- e2[[1]]$error_df
+e2df2 <- e2[[2]]$error_df
+```
+
+
+<!--- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% --->
+<!--- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% --->
+<!--- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% --->
+<!--- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% --->
+
+# Computing Environment
+`r mSpecs$session()`
