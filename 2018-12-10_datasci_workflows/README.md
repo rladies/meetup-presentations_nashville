@@ -4,6 +4,8 @@
 
 ![Speaker bios](speakerbios.png)
 
+## [Link to slides (PDF)](2018-12-10_datasci_workflows.pdf)
+
 ## Sections
 
 1. Database connections and querying with dplyr and data.table (Amy Graves)
